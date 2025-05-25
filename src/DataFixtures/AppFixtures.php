@@ -26,7 +26,6 @@ class AppFixtures extends Fixture
             $restaurants[] = $restaurant;
         }
 
-        // Créer 20 employés
         for ($i = 0; $i < 15; $i++) {
             $employee = new Employee();
             $employee->setName($faker->name);
