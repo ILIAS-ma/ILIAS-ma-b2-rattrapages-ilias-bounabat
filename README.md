@@ -30,3 +30,5 @@ L’objectif principal était de pratiquer les fondamentaux du backend avec Symf
 -Mise en place d’interfaces de gestion via CRUD
 
 ⚠️ Remarque : J’ai rencontré quelques difficultés techniques au niveau des commits, mais l’ensemble du travail réalisé est bien présent dans le projet.
+
+Lien youtube : https://youtu.be/zXUw8Dzt7Mw
