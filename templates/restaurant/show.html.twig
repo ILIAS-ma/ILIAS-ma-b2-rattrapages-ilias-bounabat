@@ -1,38 +1,133 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Restaurant{% endblock %}
+{% block title %}Détails du Restaurant{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .page-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+        background-color: #C7D300;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+    .details-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .details-header {
+        border-bottom: 2px solid #C7D300;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .details-header h2 {
+        color: #005f6b;
+        font-size: 28px;
+        margin: 0;
+    }
+
+    .details-content {
+        margin-bottom: 30px;
+    }
+
+    .details-item {
+        margin-bottom: 15px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 5px;
+    }
+
+    .details-item strong {
+        color: #005f6b;
+        display: inline-block;
+        width: 150px;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background-color: #005f6b;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #C7D300;
+        color: #333;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-    <h1>Restaurant</h1>
+    <h1 class="page-title">Détails du Restaurant</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ restaurant.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ restaurant.name }}</td>
-            </tr>
-            <tr>
-                <th>Location</th>
-                <td>{{ restaurant.location }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ restaurant.createdAt ? restaurant.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Updated_at</th>
-                <td>{{ restaurant.updatedAt ? restaurant.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="details-container">
+        <div class="details-header">
+            <h2>{{ restaurant.name }}</h2>
+        </div>
 
-    <a href="{{ path('app_restaurant_index') }}">back to list</a>
+        <div class="details-content">
+            <div class="details-item">
+                <strong>Nom :</strong>
+                <span>{{ restaurant.name }}</span>
+            </div>
 
-    <a href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+            <div class="details-item">
+                <strong>Localisation :</strong>
+                <span>{{ restaurant.location }}</span>
+            </div>
 
-    {{ include('restaurant/_delete_form.html.twig') }}
+            <div class="details-item">
+                <strong>Date de création :</strong>
+                <span>{{ restaurant.createdAt ? restaurant.createdAt|date('d/m/Y H:i') : 'Non spécifiée' }}</span>
+            </div>
+
+            <div class="details-item">
+                <strong>Dernière mise à jour :</strong>
+                <span>{{ restaurant.updatedAt ? restaurant.updatedAt|date('d/m/Y H:i') : 'Non spécifiée' }}</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a href="{{ path('app_restaurant_index') }}" class="btn btn-secondary">Retour à la liste</a>
+            <a href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}" class="btn btn-primary">Modifier</a>
+            <form method="post" action="{{ path('app_restaurant_delete', {'id': restaurant.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce restaurant ?');" style="display: inline;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ restaurant.id) }}">
+                <button class="btn btn-danger">Supprimer</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

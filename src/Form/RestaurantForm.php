@@ -14,12 +14,6 @@ class RestaurantForm extends AbstractType
         $builder
             ->add('name')
             ->add('location')
-            ->add('created_at', null, [
-                'widget' => 'single_text'
-            ])
-            ->add('updated_at', null, [
-                'widget' => 'single_text'
-            ])
         ;
     }
 

@@ -1,11 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Restaurant{% endblock %}
+{% block title %}Nouveau Restaurant{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .page-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+        background-color: #C7D300;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #005f6b;
+        box-shadow: 0 0 5px rgba(0, 95, 107, 0.3);
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background-color: #005f6b;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #C7D300;
+        color: #333;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Restaurant</h1>
+    <h1 class="page-title">Créer un nouveau restaurant</h1>
 
-    {{ include('restaurant/_form.html.twig') }}
+    <div class="form-container">
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.name, {'attr': {'class': 'error-message'}}) }}
+            </div>
 
-    <a href="{{ path('app_restaurant_index') }}">back to list</a>
+            <div class="form-group">
+                {{ form_label(form.location) }}
+                {{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.location, {'attr': {'class': 'error-message'}}) }}
+            </div>
+
+            <div class="btn-group">
+                <a href="{{ path('app_restaurant_index') }}" class="btn btn-secondary">Retour à la liste</a>
+                <button type="submit" class="btn btn-primary">Créer</button>
+            </div>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

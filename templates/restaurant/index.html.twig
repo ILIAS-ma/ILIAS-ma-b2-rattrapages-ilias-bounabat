@@ -1,41 +1,85 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Restaurant index{% endblock %}
+{% block title %}Restaurants{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .page-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center; 
+        background-color: #C7D300;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+    .create-btn {
+        display: inline-block;
+        margin-bottom: 20px;
+        background-color: #005f6b;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        text-decoration: none;  
+    }
+
+    .restaurant-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .restaurant-card {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+        padding: 16px;
+        width: 300px;
+        border-radius: 15px;
+    }
+
+    .btn-group {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-group a,
+    .btn-group button {
+        margin-right: 5px;
+        background-color: #005f6b;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        text-decoration: none;  
+    }
+</style>
+{% endblock %}
 
 {% block body %}
-    <h1>Restaurant index</h1>
+    <h1 class="page-title">Liste des Restaurants</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <a href="{{ path('app_restaurant_new') }}" class="create-btn">Créer un nouveau restaurant</a>
+
+    <div class="restaurant-list">
         {% for restaurant in restaurants %}
-            <tr>
-                <td>{{ restaurant.id }}</td>
-                <td>{{ restaurant.name }}</td>
-                <td>{{ restaurant.location }}</td>
-                <td>{{ restaurant.createdAt ? restaurant.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ restaurant.updatedAt ? restaurant.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}">show</a>
-                    <a href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <div class="restaurant-card">
+                <h2>{{ restaurant.name }}</h2>
+                <p>{{ restaurant.location }}</p>
+                <p>Créé le {{ restaurant.createdAt|date('d/m/Y') }}</p>
+                <p>Mis à jour le {{ restaurant.updatedAt|date('d/m/Y') }}</p>
 
-    <a href="{{ path('app_restaurant_new') }}">Create new</a>
+                <div class="btn-group">
+                    <a href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}">Voir</a>
+                    <a href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}">Modifier</a>
+                    <form method="post" action="{{ path('app_restaurant_delete', {'id': restaurant.id}) }}" onsubmit="return confirm('Supprimer ce restaurant ?');" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ restaurant.id) }}">
+                        <button>Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun restaurant trouvé.</p>
+        {% endfor %}
+    </div>
 {% endblock %}
