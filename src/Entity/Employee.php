@@ -25,7 +25,7 @@ class Employee
     private ?bool $active = null;
 
     #[ORM\ManyToOne(targetEntity: Restaurant::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Restaurant $restaurant = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
