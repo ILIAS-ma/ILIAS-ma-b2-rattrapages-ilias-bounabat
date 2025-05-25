@@ -2,7 +2,7 @@
 
 ## 🏢 Contexte de l’exercice
 
-Ce projet a été réalisé dans le cadre d’un rattrapage technique visant à mettre en œuvre un backend Symfony pour la chaîne de restauration Mongoo. L’objectif est de permettre une meilleure gestion des données (restaurants, ingrédients, commandes) et de fluidifier l’expérience utilisateur pour le click & collect.
+Ce projet a été réalisé dans le cadre d’un rattrapage technique visant à mettre en œuvre un backend Symfony pour la chaîne de restauration Mongoo. L’objectif est de permettre une meilleure gestion des données  et de fluidifier l’expérience utilisateur pour le click & collect.
 
 ## 📦 Installation et configuration
 
@@ -53,8 +53,7 @@ Les CRUD ont été créés pour :
 
 ## ⚠️ Problèmes rencontrés
 
-J’ai rencontré quelques problèmes lors de l’utilisation de Git :
-- Quelques commits oubliés au début du projet
+J’ai rencontré un problème lors de l’utilisation de Git :
 - Difficultés lors des conflits de fusion
 
 Toutefois, l’intégralité du code et des ressources est bien présente dans le dépôt.
